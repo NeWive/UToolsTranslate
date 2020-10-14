@@ -1,0 +1,17 @@
+{
+  "pluginName": "翻译",
+  "description": "集成翻译",
+  "main": "index.html",
+  "version": "0.0.1",
+  "author": "NeWive",
+  "homepage": "https://github.com/NeWive",
+  "logo": "./assets/logo.jpg",
+  "preload": "./js/preload.js",
+  "features": [
+    {
+      "code": "translate",
+      "explain": "translation",
+      "cmds":["fy", "translate"]
+    }
+  ]
+}
