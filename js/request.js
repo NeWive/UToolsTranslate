@@ -1,7 +1,5 @@
 window.browser = utools.ubrowser;
 window.str = '';
-// TODO: parse translate.google.cn
-// TODO: handle youdao translate page
 
 async function reqBaidu() {
     // food
@@ -94,7 +92,7 @@ async function reqBaidu() {
 async function reqGoogle() {
     let q = window.str;
     try {
-        return await window.browser.goto(`https://translate.google.cn/#view=home&op=translate&sl=en&tl=zh-CN&text=${genQuery(q)}`)
+        let data = await window.browser.goto(`https://translate.google.cn/#view=home&op=translate&sl=en&tl=zh-CN&text=${genQuery(q)}`)
             .wait('.tlid-translation')
             .evaluate(() => {
                 let title = document.getElementById('source').value;
@@ -130,6 +128,7 @@ async function reqGoogle() {
                     }
                 });
                 return {
+                    msg: 1,
                     translations: o
                 }
             })
@@ -141,8 +140,8 @@ async function reqGoogle() {
                 let index = -1;
                 new Array(
                     ...document.getElementsByClassName('gt-cd-mmd')[0]
-                    .getElementsByClassName('gt-cd-c')[0]
-                    .children
+                        .getElementsByClassName('gt-cd-c')[0]
+                        .children
                 )
                     .forEach((i) => {
                         console.log(i);
@@ -162,11 +161,12 @@ async function reqGoogle() {
                                 } catch (e) {
 
                                 }
-                                 o[index].definitions.push(objTemp);
+                                o[index].definitions.push(objTemp);
                             });
                         }
                     });
                 return {
+                    msg: 1,
                     definitions: o
                 }
             })
@@ -174,6 +174,10 @@ async function reqGoogle() {
             .run({
                 show: false
             })
+        return {
+            data,
+            from: 'google'
+        }
     } catch (e) {
         return {
             msg: 0,
@@ -185,12 +189,54 @@ async function reqGoogle() {
 }
 
 async function reqYD() {
-
+    try {
+        let data = await window.browser.goto(`http://fanyi.youdao.com/?q=${window.str}`)
+            .wait('#inputOriginal')
+            .evaluate(() => {
+                document.querySelector('#inputOriginal').value = window.location.search.split('=')[1];
+            })
+            .click('#transMachine')
+            .wait(1500)
+            .evaluate(() => {
+                let spell = document.querySelector('#transTarget p span').innerText;
+                let title = document.getElementById('inputOriginal').value;
+                return {
+                    spell,
+                    title,
+                    msg: 1
+                }
+            })
+            .evaluate(() => {
+                let t = document.getElementsByClassName('input__target__dict')[0];
+                if(/block/.test(t.style.display)) {
+                    return {
+                        msg: 1,
+                        translations: new Array(...document.getElementsByClassName('no-link')).map((i) => (
+                            i.innerText
+                        ))
+                    }
+                }
+            })
+            .run({
+                show: false
+            });
+        return {
+            data,
+            from: 'YD'
+        }
+    } catch (e) {
+        return {
+            msg: 0,
+            err: e,
+            tips: 'parsing content error',
+            from: 'YD'
+        };
+    }
 }
 
 // test module
 (function init() {
     document.getElementById('nibaba').onclick = async () => {
-        console.log(await reqGoogle());
+        console.log(await reqYD());
     };
 })()
