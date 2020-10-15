@@ -233,10 +233,3 @@ async function reqYD() {
         };
     }
 }
-
-// test module
-(function init() {
-    document.getElementById('nibaba').onclick = async () => {
-        console.log(await reqYD());
-    };
-})()

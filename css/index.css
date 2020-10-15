@@ -1,0 +1,81 @@
+html, body {
+    width: 800px;
+    height: 800px;
+    position: relative;
+}
+.container {
+    background: #fff;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.selection {
+    /*background: green;*/
+    float: left;
+    padding: 10px 0;
+    /*margin-left: ;*/
+}
+.content {
+    background: black;
+}
+.selection .panel {
+    width: 70px;
+    height: 80px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    transition: transform .3s ease-in-out;
+    cursor: pointer;
+    transform: translateX(-100px);
+}
+.selection_loading .panel {
+    transform: translateX(-10px);
+}
+.selection_loading .panel:nth-child(1) {
+    transition-delay: 0s;
+}
+.selection_loading .panel:nth-child(2) {
+    transition-delay: .2s;
+}
+.selection_loading .panel:nth-child(3) {
+    transition-delay: .5s;
+}
+.selection_loading .panel:nth-child(4) {
+    transition-delay: .7s;
+}
+.selection_loading .panel:nth-child(5) {
+    transition-delay: .9s;
+}
+.selection_loaded .panel {
+    transform: translateX(-10px);
+}
+.selection .panel:hover {
+    transform: translateX(0px);
+}
+.selection .panel span {
+    transform: translate(5px);
+    color: #FFF;
+    font-weight: bold;
+}
+.selection .panel:last-child {
+    margin-bottom: 0;
+}
+.selection .YD {
+    background: #ef476f;
+}
+.selection .Baidu {
+    background: #118ab2;
+}
+.selection .Google {
+    background: #06d6a0;
+}
+.selection .History {
+    background: #ffd166;
+}
+.selection .Info {
+    background: #073b4c;
+}
