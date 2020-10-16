@@ -6,6 +6,23 @@ html, body {
 }
 .input {
     display: flex;
+    position: relative;
+}
+.input .search {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    margin: auto;
+    right: 40px;
+    bottom: -20px;
+}
+.input .search img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 .input input {
     width: 100%;
@@ -28,6 +45,8 @@ html, body {
     position: absolute;
     height: 100%;
     width: 100%;
+    display: flex;
+    transition: box-shadow .3s ease-in-out
 }
 .selection_box {
     display: flex;
@@ -41,7 +60,14 @@ html, body {
     /*margin-left: ;*/
 }
 .content {
-    background: black;
+    background: #f3f3f3;
+    /* float: right; */
+    /* position: absolute; */
+    width: 635px;
+    height: 400px;
+    transform: translate(50px, 36px);
+    border-radius: 20px;
+    transition: box-shadow .3s ease-in-out;
 }
 .selection .panel {
     width: 70px;

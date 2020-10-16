@@ -15,7 +15,8 @@ async function reqBaidu() {
                 return {
                     title,
                     spell,
-                    msg: 1
+                    msg: 1,
+                    type: 'simple'
                 }
             })
             .when('.simple-dict')
@@ -41,7 +42,7 @@ async function reqBaidu() {
                     return {
                         msg: 1,
                         translations: comment,
-                        type: 'common'
+                        type: 'detail'
                     };
                 }
 
@@ -100,7 +101,8 @@ async function reqGoogle() {
                 return {
                     title,
                     spell,
-                    msg: 1
+                    msg: 1,
+                    type: 'simple'
                 }
             })
             .when('.gt-baf-table')
@@ -129,7 +131,8 @@ async function reqGoogle() {
                 });
                 return {
                     msg: 1,
-                    translations: o
+                    translations: o,
+                    type: 'translate'
                 }
             })
             .end()
@@ -167,7 +170,8 @@ async function reqGoogle() {
                     });
                 return {
                     msg: 1,
-                    definitions: o
+                    definitions: o,
+                    type: 'definition'
                 }
             })
             .end()
@@ -203,7 +207,8 @@ async function reqYD() {
                 return {
                     spell,
                     title,
-                    msg: 1
+                    msg: 1,
+                    type: 'simple'
                 }
             })
             .evaluate(() => {
@@ -213,7 +218,8 @@ async function reqYD() {
                         msg: 1,
                         translations: new Array(...document.getElementsByClassName('no-link')).map((i) => (
                             i.innerText
-                        ))
+                        )),
+                        type: 'translation'
                     }
                 }
             })
