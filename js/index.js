@@ -1,3 +1,6 @@
+window.browser = utools.ubrowser;
+window.str = '';
+
 const conf = {
     'YouDao': {
         name: '有道翻译',
@@ -52,16 +55,22 @@ function handleSelection() {
 
 function requestHandler() {
     console.log('start request');
-    reqBaidu().then((d) => {
-        console.log(d);
-    });
-    reqYD().then((d) => {
-        // parseDataFromYD(d).forEach((i) => {
-        //     getNodeByClass('content')[0].appendChild(i);
-        // });
-    });
+    // reqBaidu().then((d) => {
+    //     // console.log(d);
+    //     // parseDataFromBaidu(d).forEach((i) => {
+    //     //     getNodeByClass('content')[0].appendChild(i);
+    //     // });
+    // });
+    // reqYD().then((d) => {
+    //     // parseDataFromYD(d).forEach((i) => {
+    //     //     getNodeByClass('content')[0].appendChild(i);
+    //     // });
+    // });
     reqGoogle().then((d) => {
         console.log(d);
+        parseDataFromGoogle(d).forEach((i) => {
+            getNodeByClass('content')[0].appendChild(i);
+        });
     });
 }
 
@@ -74,7 +83,7 @@ function init() {
     }
     getNodeByClass('panel').forEach((i) => {
         i.onclick = (e) => {
-            getNodeByClass('content')[0].style.boxShadow = `0 0 0 2px ${conf[e.target.getAttribute('key')].color}`;
+            getNodeByClass('content')[0].style.boxShadow = `0 0 10px -2px ${conf[e.target.getAttribute('key')].color}`;
         }
     });
     handleSelection();

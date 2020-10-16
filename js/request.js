@@ -1,6 +1,3 @@
-window.browser = utools.ubrowser;
-window.str = '';
-
 async function reqBaidu() {
     // food
     // red a
